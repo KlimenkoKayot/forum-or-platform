@@ -181,6 +181,18 @@ func (h *Handler) AdminUpdate(w http.ResponseWriter, r *http.Request) {
 	http.Redirect(w, r, "/posts", http.StatusFound)
 }
 
+func adminAuthMiddleware(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		defer func() {
+			if err := recover(); err != nil {
+				fmt.Println("TEST ADMIN AUTH MIDDLEWARE")
+				log.Fatal(err)
+			}
+		}()
+		next.ServeHTTP(w, r)
+	})
+}
+
 func main() {
 	fmt.Println("Connecting to database...")
 	dsn := "r91807sb_data:Gk15092006@tcp(r91807sb.beget.tech)/r91807sb_data?"
@@ -210,10 +222,10 @@ func main() {
 	adminRouter.HandleFunc("/admin/edit/{id}", handlers.AdminUpdate).Methods("POST")
 	adminRouter.HandleFunc("/admin/delete/{id}", handlers.AdminDelete).Methods("DELETE")
 
-	//adminHandler := adminAuthMiddleware(adminRouter)
+	adminHandler := adminAuthMiddleware(adminRouter)
 
 	mainRouter := mux.NewRouter()
-	//mainRouter.Handle("/admin", adminHandler)
+	mainRouter.Handle("/admin", adminHandler)
 	mainRouter.HandleFunc("/", handlers.Index).Methods("GET")
 	mainRouter.HandleFunc("/publications", handlers.Publications).Methods("GET")
 	mainRouter.HandleFunc("/ideas", handlers.Ideas).Methods("GET")
