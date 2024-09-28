@@ -113,3 +113,8 @@ a:hover {
     justify-content: space-between;
     padding: 0px 20px;
 }
+
+.publications-header {
+    text-align: center;
+    margin: 20px;
+}

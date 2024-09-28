@@ -65,11 +65,6 @@ a:hover {
     color: #fff;
 }
 
-.carousel-item {
-    margin-top: 5px;
-
-}
-
 .carousel-item-1 {
     display: flex;
     justify-content: center; 
