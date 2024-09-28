@@ -51,7 +51,7 @@ func (h *Handler) AdminIndex(w http.ResponseWriter, r *http.Request) {
 	}
 	rows.Close()
 
-	err = h.Tmpl.ExecuteTemplate(w, "index.html", tpl{
+	err = h.AdminTmpl.ExecuteTemplate(w, "index.html", tpl{
 		Posts: posts,
 	})
 	if err != nil {
@@ -95,7 +95,7 @@ func (h *Handler) AdminAdd(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *Handler) AdminAddPost(w http.ResponseWriter, r *http.Request) {
-	err := h.Tmpl.ExecuteTemplate(w, "add.html", nil)
+	err := h.AdminTmpl.ExecuteTemplate(w, "add.html", nil)
 	check(err)
 }
 
@@ -131,7 +131,7 @@ func (h *Handler) AdminEdit(w http.ResponseWriter, r *http.Request) {
 	}
 	rows.Close()
 
-	h.Tmpl.ExecuteTemplate(w, "edit.html", post)
+	h.AdminTmpl.ExecuteTemplate(w, "edit.html", post)
 }
 
 func (h *Handler) AdminUpdate(w http.ResponseWriter, r *http.Request) {
@@ -222,7 +222,7 @@ func main() {
 	adminRouter.HandleFunc("/admin/edit/{id}", handlers.AdminUpdate).Methods("POST")
 	adminRouter.HandleFunc("/admin/delete/{id}", handlers.AdminDelete).Methods("DELETE")
 
-	adminHandler := adminAuthMiddleware(adminRouter)
+	adminRouter.Use(adminAuthMiddleware)
 
 	mainRouter := mux.NewRouter()
 	mainRouter.Handle("/admin", adminHandler)
