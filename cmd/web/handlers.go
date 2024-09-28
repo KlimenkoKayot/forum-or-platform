@@ -91,7 +91,7 @@ func (h *Handler) AdminAdd(w http.ResponseWriter, r *http.Request) {
 	fmt.Printf("Created!\n\tLast id: %v\n\tAdded rows: %v", newid, addcnt)
 	fmt.Println(result.RowsAffected())
 
-	http.Redirect(w, r, "/posts", http.StatusFound)
+	http.Redirect(w, r, "/admin", http.StatusFound)
 }
 
 func (h *Handler) AdminAddPost(w http.ResponseWriter, r *http.Request) {
@@ -178,7 +178,7 @@ func (h *Handler) AdminUpdate(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("UPDATED BY [" + r.UserAgent() + "]")
 	fmt.Printf("\tid: %v\n\taffected: %v\n", id, affected)
 
-	http.Redirect(w, r, "/posts", http.StatusFound)
+	http.Redirect(w, r, "/admin", http.StatusFound)
 }
 
 func (h *Handler) Index(w http.ResponseWriter, r *http.Request) {

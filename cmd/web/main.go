@@ -46,7 +46,7 @@ func main() {
 	mainRouter.HandleFunc("/publications", handlers.Publications).Methods("GET")
 	mainRouter.HandleFunc("/ideas", handlers.Ideas).Methods("GET")
 	mainRouter.HandleFunc("/smth", handlers.Smth).Methods("GET")
-	mainRouter.HandleFunc("/user", handlers.Persone).Methods("GET")
+	mainRouter.HandleFunc("/profile", handlers.Persone).Methods("GET")
 	mainRouter.PathPrefix("/admin").Handler(adminRouter)
 
 	fmt.Println("starting server at :9990")
