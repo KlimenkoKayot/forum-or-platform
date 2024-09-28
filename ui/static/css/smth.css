@@ -1,14 +1,24 @@
+html {
+    background-color: #475ca4;
+}
 
-.topnav{
-    background-color: #003153;
-    padding: 30px;
+body {
+    background-color: #E2D7BB;
+}
+
+.topnav {
+    z-index: 2;
+    position: sticky;
+    background-color: #475ca4;
+    -webkit-text-size-adjust: auto;
+    padding: 22px;
     margin: 0px;
+    top: 0;
     text-align: center;
-    position:static; 
 }
 
 a {
-    color:#D9D9D9;
+    color: #fff;;
     padding: 10px 20px 10px 20px;
     margin: 0px 10px 0px 10px;
     text-decoration: none; 
@@ -18,14 +28,39 @@ a:hover {
     text-decoration: none; 
 }
 
-.now{
+.now {
     color: #FFFFFF; 
-    background-color: #C10F1F;
+    background-color: #972828;
     border-radius: 5px;
-   } 
+} 
 
-.nav-button:hover{
+.nav-button:hover {
     color: #FFFFFF; 
-    background-color: #00416E;
+    background-color: #6679b7;
     border-radius: 5px;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    background-color: #a2aed2;
+    min-width: 100%;
+    overflow: auto;
+    box-shadow: 0px 8px 16px 0px;
+    padding: 16px 16px;
+    z-index: 1;
+}
+
+.dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+.dropdown-item:hover {
+    background-color: #6479bf;
+    color: #fff;
 }

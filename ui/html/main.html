@@ -5,12 +5,12 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <link rel="stylesheet" href="../css/stylesMain.css" >
+    <link rel="stylesheet" href="../static/css/stylesMain.css" >
     <title>Главная</title>
   </head>
 
   <body>
-     <!-- Навигационная шапка -->
+    <!-- Навигационная шапка -->
     <nav class="topnav">
       <a class="now" href="" title>Главная</a>
       <a class="nav-button" href="publications.html" title>Статьи</a>
@@ -25,7 +25,7 @@
           <p><a class="dropdown-item" href="#">Вход/Выход</a></p>
         </div>
       </div>
-  </nav>  
+    </nav>  
 
     <!-- Перелистывающиеся слайды -->
     <div id="carouselExampleFade" class="carousel slide carousel-fade">
@@ -33,25 +33,43 @@
         <!--  Слайд 1  -->
         <div class="carousel-item active">
           <div class="carousel-item-1">
-            <h1> Красивое название форума </h1>
-            <h5> Первый слайд </h5>
-            <p> Немножко текста </p>
+            <div class="carousel-text">
+              <h3> Название 1 </h3>
+              <p class="data-text">29.09.2024</p>
+              <br>
+              <p> Описание добавления. лалаалалал лалалалалалала ллаалалалалалл алалалалалала лалалалал алалал алалал </p>
+            </div>
+            <div class="carousel-img">
+              <img src="../static/img/img_building.jpeg">
+            </div>
           </div>
         </div>
         <!--  Слайд 2  -->
         <div class="carousel-item">
           <div class="carousel-item-2">
-            <h1> Красивое название форума </h1>
-            <h5> Второй слайд </h5>
-            <p> Немножко текста </p>
+            <div class="carousel-text">
+              <h3> Название 2 </h3>
+              <p class="data-text">29.09.2024</p>
+              <br>
+              <p> Описание добавления. лалаалалал kdkdkdkdkkdлалалал алалалаллаалала лалаллала лалалалалалал алалалал алалалалал </p>
+            </div> 
+            <div class="carousel-img">
+              <img src="../static/img/img_building.jpeg">
+            </div>
           </div>
         </div>
         <!--  Слайд 3  -->
         <div class="carousel-item">
           <div class="carousel-item-3">
-            <h1> Красивое название форума </h1>
-            <h5> Третий слайд </h5>
-            <p> Немножко текста </p>
+            <div class="carousel-text">
+              <h3> Название 3 </h3>
+              <p class="data-text">29.09.2024</p>
+              <br>
+              <p> Описание добавления. лалаалалал лалал ал алалала лл аалала лалаллала лалала лалалал алал алал алал алалал </p>
+            </div>
+            <div class="carousel-img">
+              <img src="../static/img/img_building.jpeg">
+            </div>
           </div>
         </div>
       </div>
@@ -67,31 +85,14 @@
       </button>
     </div>
     
-    <div class="anons-news">
-      <h1> Анонсы мероприятий </h1>
-      <div class="body-anons-news">
-          <div class="anons-1">
-            <h3> Header 1</h3>
-            <p> text 1</p>
-          </div>
-          <div class="anons-2">
-            <h3> Header 2</h3>
-            <p> text 2</p>
-          </div>
-          <div class="anons-3">
-            <h3> Header 3</h3>
-            <p> text 3</p>
-          </div>
-      </div>
-    </div>
+      <h3 class="about"> О чем этот сайт? </h3>
+      <p class="about"> Предложтье свою идеи и высококваллифицированные специалисты оценят ее.</p>
     
-
-    <div style="height: 600px; width: auto;"></div>
   </body>
 
   <footer>
-    <p> Здесь немножко информации об авторах</p>
-    <p> 2024 </p>
+    <p> Форум разработан в рамках проекта по ОРГ</p>
+    <p> @2024 </p>
   </footer>
   
 </html>
