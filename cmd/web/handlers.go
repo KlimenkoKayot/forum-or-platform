@@ -32,7 +32,7 @@ type Handler struct {
 	Tmpl      *template.Template
 }
 
-func check(err error) {
+func Check(err error) {
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -42,11 +42,11 @@ func (h *Handler) AdminIndex(w http.ResponseWriter, r *http.Request) {
 	posts := []*Post{}
 
 	rows, err := h.DB.Query("SELECT id, title, author, text, updated FROM posts")
-	check(err)
+	Check(err)
 	for rows.Next() {
 		post := &Post{}
 		err = rows.Scan(&post.Id, &post.Title, &post.Author, &post.Text, &post.Updated)
-		check(err)
+		Check(err)
 		posts = append(posts, post)
 	}
 	rows.Close()
@@ -85,7 +85,7 @@ func (h *Handler) AdminAdd(w http.ResponseWriter, r *http.Request) {
 	}
 
 	result, err := h.DB.Exec("INSERT INTO posts (`title`, `author`, `text`) VALUES (?, ?, ?)", title, author, text)
-	check(err)
+	Check(err)
 	newid, _ := result.LastInsertId()
 	addcnt, _ := result.RowsAffected()
 	fmt.Printf("Created!\n\tLast id: %v\n\tAdded rows: %v", newid, addcnt)
@@ -96,20 +96,20 @@ func (h *Handler) AdminAdd(w http.ResponseWriter, r *http.Request) {
 
 func (h *Handler) AdminAddPost(w http.ResponseWriter, r *http.Request) {
 	err := h.AdminTmpl.ExecuteTemplate(w, "add.html", nil)
-	check(err)
+	Check(err)
 }
 
 func (h *Handler) AdminDelete(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("TRY DELETE")
 	vars := mux.Vars(r)
 	id, err := strconv.Atoi(vars["id"])
-	check(err)
+	Check(err)
 
 	res, err := h.DB.Exec("DELETE FROM posts WHERE id = ?", id)
-	check(err)
+	Check(err)
 
 	affected, err := res.RowsAffected()
-	check(err)
+	Check(err)
 
 	fmt.Println("DELETE by [" + r.UserAgent() + "]")
 	fmt.Printf("\tid: %v\n\taffected: %v\n", id, affected)
@@ -120,14 +120,14 @@ func (h *Handler) AdminDelete(w http.ResponseWriter, r *http.Request) {
 func (h *Handler) AdminEdit(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	id, err := strconv.Atoi(vars["id"])
-	check(err)
+	Check(err)
 
 	rows, err := h.DB.Query("SELECT id, title, author, text, updated FROM posts WHERE id = ?", id)
-	check(err)
+	Check(err)
 	post := &Post{}
 	for rows.Next() {
 		err = rows.Scan(&post.Id, &post.Title, &post.Author, &post.Text, &post.Updated)
-		check(err)
+		Check(err)
 	}
 	rows.Close()
 
@@ -137,7 +137,7 @@ func (h *Handler) AdminEdit(w http.ResponseWriter, r *http.Request) {
 func (h *Handler) AdminUpdate(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	id, err := strconv.Atoi(vars["id"])
-	check(err)
+	Check(err)
 
 	title := r.FormValue("title")
 	text := r.FormValue("text")
@@ -171,10 +171,10 @@ func (h *Handler) AdminUpdate(w http.ResponseWriter, r *http.Request) {
 		updated,
 		id,
 	)
-	check(err)
+	Check(err)
 
 	affected, err := res.RowsAffected()
-	check(err)
+	Check(err)
 	fmt.Println("UPDATED BY [" + r.UserAgent() + "]")
 	fmt.Printf("\tid: %v\n\taffected: %v\n", id, affected)
 
@@ -201,7 +201,7 @@ func (h *Handler) Persone(w http.ResponseWriter, r *http.Request) {
 	h.Tmpl.ExecuteTemplate(w, "persone.html", nil)
 }
 
-func adminAuthMiddleware(next http.Handler) http.Handler {
+func AdminAuthMiddleware(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		defer func() {
 			if err := recover(); err != nil {

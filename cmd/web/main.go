@@ -18,11 +18,11 @@ func main() {
 
 	db, err := sql.Open("mysql", dsn)
 	db.SetMaxOpenConns(10)
-	check(err)
+	Check(err)
 
 	fmt.Println("Ping!")
 	err = db.Ping()
-	check(err)
+	Check(err)
 	fmt.Println("     Pong!")
 
 	handlers := &Handler{
@@ -39,7 +39,7 @@ func main() {
 	adminRouter.HandleFunc("/admin/edit/{id}", handlers.AdminUpdate).Methods("POST")
 	adminRouter.HandleFunc("/admin/delete/{id}", handlers.AdminDelete).Methods("DELETE")
 
-	adminRouter.Use(adminAuthMiddleware)
+	adminRouter.Use(AdminAuthMiddleware)
 
 	mainRouter := mux.NewRouter()
 	mainRouter.HandleFunc("/", handlers.Index).Methods("GET")
