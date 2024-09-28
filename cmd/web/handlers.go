@@ -27,9 +27,8 @@ type Post struct {
 }
 
 type Handler struct {
-	DB        *sql.DB
-	AdminTmpl *template.Template
-	Tmpl      *template.Template
+	DB   *sql.DB
+	Tmpl *template.Template
 }
 
 func Check(err error) {
@@ -51,7 +50,7 @@ func (h *Handler) AdminIndex(w http.ResponseWriter, r *http.Request) {
 	}
 	rows.Close()
 
-	err = h.AdminTmpl.ExecuteTemplate(w, "index.html", tpl{
+	err = h.Tmpl.ExecuteTemplate(w, "index.html", tpl{
 		Posts: posts,
 	})
 	if err != nil {
@@ -95,7 +94,7 @@ func (h *Handler) AdminAdd(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *Handler) AdminAddPost(w http.ResponseWriter, r *http.Request) {
-	err := h.AdminTmpl.ExecuteTemplate(w, "add.html", nil)
+	err := h.Tmpl.ExecuteTemplate(w, "add.html", nil)
 	Check(err)
 }
 
@@ -131,7 +130,7 @@ func (h *Handler) AdminEdit(w http.ResponseWriter, r *http.Request) {
 	}
 	rows.Close()
 
-	h.AdminTmpl.ExecuteTemplate(w, "edit.html", post)
+	h.Tmpl.ExecuteTemplate(w, "edit.html", post)
 }
 
 func (h *Handler) AdminUpdate(w http.ResponseWriter, r *http.Request) {

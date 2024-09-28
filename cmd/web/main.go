@@ -26,9 +26,8 @@ func main() {
 	fmt.Println("     Pong!")
 
 	handlers := &Handler{
-		DB:        db,
-		AdminTmpl: template.Must(template.ParseGlob("templates/*")),
-		Tmpl:      template.Must(template.ParseGlob("html/*")),
+		DB:   db,
+		Tmpl: template.Must(template.ParseGlob("../../ui/html/*")),
 	}
 
 	adminRouter := mux.NewRouter()
