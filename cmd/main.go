@@ -26,9 +26,8 @@ func main() {
 	fmt.Println("     Pong!")
 
 	handlers := &Handler{
-		DB:        db,
-		AdminTmpl: template.Must(template.ParseGlob("templates/*")),
-		Tmpl:      template.Must(template.ParseGlob("html/*")),
+		DB:   db,
+		Tmpl: template.Must(template.ParseGlob("../web/html/*")),
 	}
 
 	adminRouter := mux.NewRouter()
@@ -42,6 +41,10 @@ func main() {
 	adminRouter.Use(AdminAuthMiddleware)
 
 	mainRouter := mux.NewRouter()
+
+	staticDir := "/web/static/"
+	mainRouter.PathPrefix(staticDir).Handler(http.StripPrefix(staticDir, http.FileServer(http.Dir(".."+staticDir))))
+
 	mainRouter.HandleFunc("/", handlers.Index).Methods("GET")
 	mainRouter.HandleFunc("/publications", handlers.Publications).Methods("GET")
 	mainRouter.HandleFunc("/ideas", handlers.Ideas).Methods("GET")
