@@ -43,7 +43,7 @@ func main() {
 	mainRouter := mux.NewRouter()
 
 	staticDir := "/web/static/"
-	mainRouter.PathPrefix(staticDir).Handler(http.StripPrefix(staticDir, http.FileServer(http.Dir("."+staticDir))))
+	mainRouter.PathPrefix(staticDir).Handler(http.StripPrefix(staticDir, http.FileServer(http.Dir(".."+staticDir))))
 
 	mainRouter.HandleFunc("/", handlers.Index).Methods("GET")
 	mainRouter.HandleFunc("/publications", handlers.Publications).Methods("GET")
