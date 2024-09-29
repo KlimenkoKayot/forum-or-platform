@@ -48,6 +48,10 @@ func main() {
 	mainRouter.HandleFunc("/profile", handlers.Persone).Methods("GET")
 	mainRouter.PathPrefix("/admin").Handler(adminRouter)
 
+	fileServer := http.FileServer(http.Dir("./ui/static/"))
+
+	mainRouter.Handle("/static/", http.StripPrefix("/static", fileServer))
+
 	fmt.Println("starting server at :9990")
 	http.ListenAndServe(":9990", mainRouter)
 }
