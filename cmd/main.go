@@ -27,7 +27,7 @@ func main() {
 
 	handlers := &Handler{
 		DB:   db,
-		Tmpl: template.Must(template.ParseGlob("../../ui/html/*")),
+		Tmpl: template.Must(template.ParseGlob("../web/html/*")),
 	}
 
 	adminRouter := mux.NewRouter()
@@ -48,9 +48,9 @@ func main() {
 	mainRouter.HandleFunc("/profile", handlers.Persone).Methods("GET")
 	mainRouter.PathPrefix("/admin").Handler(adminRouter)
 
-	fileServer := http.FileServer(http.Dir("./ui/static/"))
+	fileServer := http.FileServer(http.Dir("/web/static/"))
 
-	mainRouter.Handle("/static/", http.StripPrefix("/static", fileServer))
+	mainRouter.Handle("/web/static/", http.StripPrefix("/web/static", fileServer))
 
 	fmt.Println("starting server at :9990")
 	http.ListenAndServe(":9990", mainRouter)
