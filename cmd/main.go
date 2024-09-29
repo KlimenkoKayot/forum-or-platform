@@ -41,15 +41,16 @@ func main() {
 	adminRouter.Use(AdminAuthMiddleware)
 
 	mainRouter := mux.NewRouter()
+
+	staticDir := "/web/static/"
+	mainRouter.PathPrefix(staticDir).Handler(http.StripPrefix(staticDir, http.FileServer(http.Dir("."+staticDir))))
+
 	mainRouter.HandleFunc("/", handlers.Index).Methods("GET")
 	mainRouter.HandleFunc("/publications", handlers.Publications).Methods("GET")
 	mainRouter.HandleFunc("/ideas", handlers.Ideas).Methods("GET")
 	mainRouter.HandleFunc("/smth", handlers.Smth).Methods("GET")
 	mainRouter.HandleFunc("/profile", handlers.Persone).Methods("GET")
 	mainRouter.PathPrefix("/admin").Handler(adminRouter)
-
-	staticDir := "/web/static/"
-	mainRouter.PathPrefix(staticDir).Handler(http.StripPrefix(staticDir, http.FileServer(http.Dir("."+staticDir))))
 
 	fmt.Println("starting server at :9990")
 	http.ListenAndServe(":9990", mainRouter)
