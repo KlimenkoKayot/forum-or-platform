@@ -7,6 +7,7 @@ body {
     background-color: #E2D7BB;
     display: flex;
     flex-direction: column;
+    height: 100%;
 }
 
 .topnav {
@@ -70,7 +71,6 @@ a:hover {
 .block-info {
     background-color: #D9D9D9;
     margin: 20px;
-    min-height: 100%;
 }
 
 .main {
@@ -78,9 +78,11 @@ a:hover {
 }
 
 footer {
+    margin-top: auto;
     background-color: #475ca4;
     color: #D9D9D9;
     padding: 30px 40px 30px 40px;
     text-align: center;
     width: 100%;
+    flex-shrink: 0;
 }
