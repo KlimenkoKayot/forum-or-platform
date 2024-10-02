@@ -32,13 +32,13 @@ func main() {
 
 	adminRouter := mux.NewRouter()
 	adminRouter.HandleFunc("/admin", handlers.AdminIndex).Methods("GET")
+	adminRouter.HandleFunc("/admin/login", handlers.AdminLogin).Methods("GET")
 	adminRouter.HandleFunc("/admin/add", handlers.AdminAddPost).Methods("GET")
 	adminRouter.HandleFunc("/admin/add", handlers.AdminAdd).Methods("POST")
 	adminRouter.HandleFunc("/admin/edit/{id}", handlers.AdminEdit).Methods("GET")
 	adminRouter.HandleFunc("/admin/edit/{id}", handlers.AdminUpdate).Methods("POST")
 	adminRouter.HandleFunc("/admin/delete/{id}", handlers.AdminDelete).Methods("DELETE")
-
-	adminRouter.Use(AdminAuthMiddleware)
+	adminRouter.Use(adminAuthMiddleware)
 
 	mainRouter := mux.NewRouter()
 

@@ -199,15 +199,3 @@ func (h *Handler) Smth(w http.ResponseWriter, r *http.Request) {
 func (h *Handler) Persone(w http.ResponseWriter, r *http.Request) {
 	h.Tmpl.ExecuteTemplate(w, "persone.html", nil)
 }
-
-func AdminAuthMiddleware(next http.Handler) http.Handler {
-	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		defer func() {
-			if err := recover(); err != nil {
-				fmt.Println("TEST ADMIN AUTH MIDDLEWARE")
-				log.Fatal(err)
-			}
-		}()
-		next.ServeHTTP(w, r)
-	})
-}
