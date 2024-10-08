@@ -12,7 +12,7 @@ import (
 
 func main() {
 	fmt.Println("Connecting to database...")
-	dsn := "r91807sb_data:Gk15092006@tcp(r91807sb.beget.tech)/r91807sb_data?"
+	dsn := "r91807sb_data:" + /* тут должен быть пароль */ "@tcp(r91807sb.beget.tech)/r91807sb_data?"
 	dsn += "&charset=utf8"
 	dsn += "&interpolateParams=true"
 
@@ -32,7 +32,6 @@ func main() {
 
 	adminRouter := mux.NewRouter()
 	adminRouter.HandleFunc("/admin", handlers.AdminIndex).Methods("GET")
-	adminRouter.HandleFunc("/admin/login", handlers.AdminLogin).Methods("GET")
 	adminRouter.HandleFunc("/admin/add", handlers.AdminAddPost).Methods("GET")
 	adminRouter.HandleFunc("/admin/add", handlers.AdminAdd).Methods("POST")
 	adminRouter.HandleFunc("/admin/edit/{id}", handlers.AdminEdit).Methods("GET")
@@ -41,6 +40,9 @@ func main() {
 	adminRouter.Use(adminAuthMiddleware)
 
 	mainRouter := mux.NewRouter()
+	// admin login
+	mainRouter.HandleFunc("/admin/login", handlers.AdminLogin).Methods("GET")
+	mainRouter.HandleFunc("/admin/exit", handlers.AdminExit).Methods("GET")
 
 	staticDir := "/web/static/"
 	mainRouter.PathPrefix(staticDir).Handler(http.StripPrefix(staticDir, http.FileServer(http.Dir(".."+staticDir))))
