@@ -26,3 +26,15 @@ CREATE TABLE `news` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 INSERT INTO `news` (`id`, `title`, `date`, `author`, `text`) VALUES (0, "MY CREATION", "21.10.2024", "admin", "hello fucking world");
+
+DROP TABLE IF EXISTS `publications`;
+CREATE TABLE `publications` (
+    `id` int NOT NULL AUTO_INCREMENT,
+    `title` varchar(255) NOT NULL,
+    `date` varchar(255) NOT NULL,
+    `author` text NOT NULL,
+    `text` varchar(255) DEFAULT NULL,   
+    PRIMARY KEY (`id`)   
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+INSERT INTO `publications` (`id`, `title`, `date`, `author`, `text`) VALUES (0, "MY CREATION", "21.10.2024", "admin", "hello fucking world");

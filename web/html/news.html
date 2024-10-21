@@ -29,31 +29,26 @@
         </div>
       </div>
   </nav>
+  <form class="form" method="post" action="/action/news/add">
+    <div class="form-group">
+        <label for="titleInput">Title</label><br>
+        <input type="text" class="form-text" id="titleInput" name="title" value="title">
+    </div>
+    <div class="form-group">
+        <label for="authorInput">Author (you)</label><br>
+        <input type="t`ext" class="form-text" id="authorInput" name="author" value="author">
+    </div>
+    <div class="form-group">
+        <label for="textInput">Text</label><br>
+        <textarea id="textInput" class="form-text" name="text" value="text"></textarea>
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </div>    
+  </form>
   <div class="news">
-    <form class="form" method="post" action="/action/news/add">
-      <div class="form-group">
-          <label for="titleInput">Title</label><br>
-          <input type="text" class="form-text" id="titleInput" name="title" value="title">
-      </div>
-      <div class="form-group">
-          <label for="authorInput">Author (you)</label><br>
-          <input type="t`ext" class="form-text" id="authorInput" name="author" value="author">
-      </div>
-      <div class="form-group">
-          <label for="textInput">Text</label><br>
-          <textarea id="textInput" class="form-text" name="text" value="text"></textarea>
-      </div>
-      <div class="form-group">
-          <button type="submit" class="btn btn-primary">Submit</button>
-      </div>    
-    </form>
     {{range .News}}
-    {{if .IsThird}}       
-    <!-- Группа из 3 карточек -->
-    <div class="card-group">
-    {{else}}
-    {{end}}
-      <!-- {{.Id}} карточка -->
+    {{if .IsStart}}<div class="card-group">{{end}}
       <div class="card">
         <div class="card-body">
           <h5 class="card-title">{{.Title}}</h5>
@@ -64,11 +59,7 @@
           <small class="text-body-secondary">{{.Date}}</small>
         </div>
       </div>
-    {{if .IsFirst}}
-    </div>
-    {{else}}
-    {{end}}
-
+    {{if .IsEnd}}</div>{{end}}
     {{end}}
   </div>
   

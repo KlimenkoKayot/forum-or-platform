@@ -29,20 +29,40 @@
       </div>
     </nav>  
 
+    <form class="form" method="post" action="/action/publications/add">
+      <div class="form-group">
+          <label for="titleInput">Title</label><br>
+          <input type="text" class="form-text" id="titleInput" name="title" value="title">
+      </div>
+      <div class="form-group">
+          <label for="authorInput">Author (you)</label><br>
+          <input type="t`ext" class="form-text" id="authorInput" name="author" value="author">
+      </div>
+      <div class="form-group">
+          <label for="textInput">Text</label><br>
+          <textarea id="textInput" class="form-text" name="text" value="text"></textarea>
+      </div>
+      <div class="form-group">
+          <button type="submit" class="btn btn-primary">Submit</button>
+      </div>    
+    </form>
+
     <h3 class="publications-header"> Приятного прочтения </h3>
     
     <!-- Публикации -->
     <div class="ideas">
+      {{range .Publications}}
       <div class="card">
-        <h5 class="card-header">Название</h5>
+        <h5 class="card-header">{{.Title}}</h5>
         <div class="card-body">
-          <p class="card-text">Текст, который можно тут расписать</p>
+          <p class="card-text">{{.Text}}</p>
         </div>     
         <div class="footer-text">
-          <p class="card-text"><small class="text-body-secondary"> Автор </small></p>
-          <p class="card-text"><small class="text-body-secondary">Дата публикации: 24.09.2024</small></p>
+          <p class="card-text"><small class="text-body-secondary">{{.Author}}</small></p>
+          <p class="card-text"><small class="text-body-secondary">Дата публикации: {{.Date}}</small></p>
         </div> 
       </div>
+      {{end}}
   </div>
     
   </body>

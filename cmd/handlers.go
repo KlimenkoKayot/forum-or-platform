@@ -20,6 +20,9 @@ type tpl struct {
 
 	News []*News
 	New  *News
+
+	Publications []*Publication
+	Publication  Publication
 }
 
 type Post struct {
@@ -188,8 +191,27 @@ func (h *Handler) Index(w http.ResponseWriter, r *http.Request) {
 	h.Tmpl.ExecuteTemplate(w, "main.html", nil)
 }
 
+type Publication struct {
+	Id     int
+	Title  string
+	Date   string
+	Author string
+	Text   string
+}
+
 func (h *Handler) Publications(w http.ResponseWriter, r *http.Request) {
-	h.Tmpl.ExecuteTemplate(w, "publications.html", nil)
+	publications := []*Publication{}
+	rows, err := h.DB.Query("SELECT id, title, date, author, text FROM publications")
+	Check(err)
+	for rows.Next() {
+		publication := &Publication{}
+		err = rows.Scan(&publication.Id, &publication.Title, &publication.Date, &publication.Author, &publication.Text)
+		Check(err)
+		publications = append(publications, publication)
+	}
+	rows.Close()
+	slices.Reverse(publications)
+	h.Tmpl.ExecuteTemplate(w, "publications.html", tpl{Publications: publications})
 }
 
 func (h *Handler) Ideas(w http.ResponseWriter, r *http.Request) {
@@ -202,8 +224,8 @@ type News struct {
 	Date    string
 	Author  string
 	Text    string
-	IsThird bool
-	IsFirst bool
+	IsStart bool
+	IsEnd   bool
 }
 
 func (h *Handler) News(w http.ResponseWriter, r *http.Request) {
@@ -215,13 +237,13 @@ func (h *Handler) News(w http.ResponseWriter, r *http.Request) {
 		new := &News{}
 		err = rows.Scan(&new.Id, &new.Title, &new.Date, &new.Author, &new.Text)
 		Check(err)
-		new.IsFirst = (new.Id % 3) == 1
-		new.IsThird = (new.Id % 3) == 0
+		new.IsStart = (new.Id % 3) == 0
+		new.IsEnd = (new.Id % 3) == 1
 		news = append(news, new)
 	}
 	rows.Close()
 	slices.Reverse(news)
-	news[len(news)-1].IsFirst = true
+	news[0].IsStart = true
 	h.Tmpl.ExecuteTemplate(w, "news.html", tpl{News: news})
 }
 

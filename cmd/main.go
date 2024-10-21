@@ -41,6 +41,7 @@ func main() {
 
 	actionRouter := mux.NewRouter()
 	actionRouter.HandleFunc("/action/news/add", handlers.NewsAdd).Methods("POST")
+	actionRouter.HandleFunc("/action/publications/add", handlers.PublicationsAdd).Methods("POST")
 
 	mainRouter := mux.NewRouter()
 	// admin login
