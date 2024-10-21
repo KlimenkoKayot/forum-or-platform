@@ -47,13 +47,13 @@
           <button type="submit" class="btn btn-primary">Submit</button>
       </div>    
     </form>
-    <!-- Группа из N карточек -->
     {{range .News}}
-    {{if .IsFirst}}       
-    <!-- N-ая карточка -->
+    {{if .IsThird}}       
+    <!-- Группа из 3 карточек -->
     <div class="card-group">
     {{else}}
     {{end}}
+      <!-- {{.Id}} карточка -->
       <div class="card">
         <div class="card-body">
           <h5 class="card-title">{{.Title}}</h5>
@@ -64,10 +64,11 @@
           <small class="text-body-secondary">{{.Date}}</small>
         </div>
       </div>
-    {{if .IsThird}}
+    {{if .IsFirst}}
     </div>
     {{else}}
     {{end}}
+
     {{end}}
   </div>
   

@@ -221,7 +221,7 @@ func (h *Handler) News(w http.ResponseWriter, r *http.Request) {
 	}
 	rows.Close()
 	slices.Reverse(news)
-	news[len(news)-1].IsThird = true
+	news[len(news)-1].IsFirst = true
 	h.Tmpl.ExecuteTemplate(w, "news.html", tpl{News: news})
 }
 
