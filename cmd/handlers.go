@@ -215,7 +215,7 @@ func (h *Handler) News(w http.ResponseWriter, r *http.Request) {
 		news = append(news, new)
 	}
 	rows.Close()
-	h.Tmpl.ExecuteTemplate(w, "news.html", news)
+	h.Tmpl.ExecuteTemplate(w, "news.html", tpl{News: news})
 }
 
 func (h *Handler) Persone(w http.ResponseWriter, r *http.Request) {
