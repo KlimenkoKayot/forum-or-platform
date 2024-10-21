@@ -49,7 +49,7 @@
     </form>
     <!-- Группа из N карточек -->
     <div class="card-group">
-      {{range .News}}
+    {{range .News}}
       <!-- N-ая карточка -->
       <div class="card">
         <div class="card-body">
@@ -61,7 +61,11 @@
           <small class="text-body-secondary">{{.Date}}</small>
         </div>
       </div>
+      {{if (.Id % 3 == 0)}}
+      <br>
+      {{else}}
       {{end}}
+    {{end}}
     </div>
   </div>
     </article>
