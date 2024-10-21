@@ -29,18 +29,36 @@
         </div>
       </div>
   </nav>
-
   <div class="news">
+    <form class="form" method="post" action="/action/news/add">
+      <div class="form-group">
+          <label for="titleInput">Title</label>
+          <input type="text" class="form-text" id="titleInput" name="title" value="title">
+      </div>
+      <div class="form-group">
+          <label for="authorInput">Author (you)</label>
+          <input type="t`ext" class="form-text" id="authorInput" name="author" value="author">
+      </div>
+      <div class="form-group">
+          <label for="textInput">Text</label>
+          <textarea id="textInput" class="form-text" name="text" value="text"></textarea>
+      </div>
+      <div class="form-group">
+          <button type="submit" class="btn btn-primary">Submit</button>
+      </div>    
+    </form>
+    {{range .News}}
     <!-- Группа из 3 карточек -->
     <div class="card-group">
       <!-- Первая карточка -->
       <div class="card">
         <div class="card-body">
-          <h5 class="card-title">Название</h5>
-          <p class="card-text">Описание Описание Описани еОписа ниеОписаниеОп исаниеОписание  Описание Описание Описание Описание Описани еОписание</p>
+          <h5 class="card-title">{{.Title}}</h5>
+          <h3 class="card-title">{{.Author}}</h3>
+          <p class="card-text">{{.Text}}/p>
         </div>  
         <div class="card-footer">
-          <small class="text-body-secondary">Дата 23.09.2024</small>
+          <small class="text-body-secondary">{{.Date}}</small>
         </div>
       </div>
       <!-- Вторая карточка -->
@@ -64,6 +82,7 @@
         </div>
       </div>
     </div>
+    {{end}}
   </div>
     </article>
 

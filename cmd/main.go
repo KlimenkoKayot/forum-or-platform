@@ -39,6 +39,9 @@ func main() {
 	adminRouter.HandleFunc("/admin/delete/{id}", handlers.AdminDelete).Methods("DELETE")
 	adminRouter.Use(adminAuthMiddleware)
 
+	actionRouter := mux.NewRouter()
+	actionRouter.HandleFunc("/action/news/add", handlers.NewsAdd).Methods("POST")
+
 	mainRouter := mux.NewRouter()
 	// admin login
 	mainRouter.HandleFunc("/admin/login", handlers.AdminLogin).Methods("GET")
@@ -50,9 +53,10 @@ func main() {
 	mainRouter.HandleFunc("/", handlers.Index).Methods("GET")
 	mainRouter.HandleFunc("/publications", handlers.Publications).Methods("GET")
 	mainRouter.HandleFunc("/ideas", handlers.Ideas).Methods("GET")
-	mainRouter.HandleFunc("/smth", handlers.Smth).Methods("GET")
+	mainRouter.HandleFunc("/news", handlers.News).Methods("GET")
 	mainRouter.HandleFunc("/profile", handlers.Persone).Methods("GET")
 	mainRouter.PathPrefix("/admin").Handler(adminRouter)
+	mainRouter.PathPrefix("/action").Handler(actionRouter)
 
 	fmt.Println("starting server at :9990")
 	http.ListenAndServe(":9990", mainRouter)

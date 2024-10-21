@@ -16,6 +16,9 @@ import (
 type tpl struct {
 	Posts []*Post
 	Post  *Post
+
+	News []*News
+	New  *News
 }
 
 type Post struct {
@@ -192,8 +195,27 @@ func (h *Handler) Ideas(w http.ResponseWriter, r *http.Request) {
 	h.Tmpl.ExecuteTemplate(w, "ideas.html", nil)
 }
 
-func (h *Handler) Smth(w http.ResponseWriter, r *http.Request) {
-	h.Tmpl.ExecuteTemplate(w, "smth.html", nil)
+type News struct {
+	Id     int
+	Title  string
+	Date   string
+	Author string
+	Text   string
+}
+
+func (h *Handler) News(w http.ResponseWriter, r *http.Request) {
+	news := []*News{}
+
+	rows, err := h.DB.Query("SELECT id, title, date, author, text FROM news")
+	Check(err)
+	for rows.Next() {
+		new := &News{}
+		err = rows.Scan(&new.Id, &new.Title, &new.Date, &new.Author, &new.Text)
+		Check(err)
+		news = append(news, new)
+	}
+	rows.Close()
+	h.Tmpl.ExecuteTemplate(w, "news.html", news)
 }
 
 func (h *Handler) Persone(w http.ResponseWriter, r *http.Request) {
