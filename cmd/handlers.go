@@ -197,11 +197,12 @@ func (h *Handler) Ideas(w http.ResponseWriter, r *http.Request) {
 }
 
 type News struct {
-	Id     int
-	Title  string
-	Date   string
-	Author string
-	Text   string
+	Id      int
+	Title   string
+	Date    string
+	Author  string
+	Text    string
+	IsThird bool
 }
 
 func (h *Handler) News(w http.ResponseWriter, r *http.Request) {
@@ -213,6 +214,7 @@ func (h *Handler) News(w http.ResponseWriter, r *http.Request) {
 		new := &News{}
 		err = rows.Scan(&new.Id, &new.Title, &new.Date, &new.Author, &new.Text)
 		Check(err)
+		new.IsThird = new.Id%3 == 0
 		news = append(news, new)
 	}
 	rows.Close()
