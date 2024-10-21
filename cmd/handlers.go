@@ -215,13 +215,13 @@ func (h *Handler) News(w http.ResponseWriter, r *http.Request) {
 		new := &News{}
 		err = rows.Scan(&new.Id, &new.Title, &new.Date, &new.Author, &new.Text)
 		Check(err)
-		new.IsThird = new.Id%3 == 0
-		new.IsFirst = new.Id%3 == 1
+		new.IsFirst = (new.Id % 3) == 1
+		new.IsThird = (new.Id % 3) == 0
 		news = append(news, new)
 	}
-	news[len(news)-1].IsThird = true
 	rows.Close()
 	slices.Reverse(news)
+	news[len(news)-1].IsThird = true
 	h.Tmpl.ExecuteTemplate(w, "news.html", tpl{News: news})
 }
 
