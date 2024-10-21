@@ -7,6 +7,7 @@ import (
 	"io"
 	"log"
 	"net/http"
+	"slices"
 	"strconv"
 
 	_ "github.com/go-sql-driver/mysql"
@@ -215,6 +216,7 @@ func (h *Handler) News(w http.ResponseWriter, r *http.Request) {
 		news = append(news, new)
 	}
 	rows.Close()
+	slices.Reverse(news)
 	h.Tmpl.ExecuteTemplate(w, "news.html", tpl{News: news})
 }
 
