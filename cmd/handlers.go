@@ -23,6 +23,9 @@ type tpl struct {
 
 	Publications []*Publication
 	Publication  Publication
+
+	Ideas []*Idea
+	Idea  Idea
 }
 
 type Post struct {
@@ -214,8 +217,32 @@ func (h *Handler) Publications(w http.ResponseWriter, r *http.Request) {
 	h.Tmpl.ExecuteTemplate(w, "publications.html", tpl{Publications: publications})
 }
 
+type Idea struct {
+	Id      int
+	Title   string
+	Date    string
+	Text    string
+	IsStart bool
+	IsEnd   bool
+}
+
 func (h *Handler) Ideas(w http.ResponseWriter, r *http.Request) {
-	h.Tmpl.ExecuteTemplate(w, "ideas.html", nil)
+	ideas := []*Idea{}
+
+	rows, err := h.DB.Query("SELECT id, title, date, text FROM ideas")
+	Check(err)
+	for rows.Next() {
+		idea := &Idea{}
+		err = rows.Scan(&idea.Id, &idea.Title, &idea.Date, &idea.Text)
+		Check(err)
+		idea.IsStart = (idea.Id % 3) == 0
+		idea.IsEnd = (idea.Id % 3) == 1
+		ideas = append(ideas, idea)
+	}
+	rows.Close()
+	slices.Reverse(ideas)
+	ideas[0].IsStart = true
+	h.Tmpl.ExecuteTemplate(w, "ideas.html", tpl{Ideas: ideas})
 }
 
 type News struct {

@@ -15,7 +15,7 @@
     <!-- Навигационная шапка -->
     <nav class="topnav">
         <a class="nav-button" href="/" title>Главная</a>
-        <a class="nav-button" href="smth" title>Новости</a>
+        <a class="nav-button" href="news" title>Новости</a>
         <a class="nav-button" href="publications" title>Статьи</a>
         <a class="now" href="" title>Идеи</a>
         <div class="dropdown">
@@ -29,45 +29,42 @@
         </div>
     </nav>
 
+    <form class="form" method="post" action="/action/ideas/add">
+      <div class="form-group">
+          <label for="titleInput">Title</label><br>
+          <input type="text" class="form-text" id="titleInput" name="title" value="title">
+      </div>
+      <div class="form-group">
+          <label for="textInput">Text</label><br>
+          <textarea id="textInput" class="form-text" name="text" value="text"></textarea>
+      </div>
+      <div class="form-group">
+          <button type="submit" class="btn btn-primary">Submit</button>
+      </div>    
+    </form>
+
     <!-- Кнопка добавления идей -->
     <button class="pushback-idea">Создать</button>
 
     <!-- Публикации идей -->
     <div class="ideas">
     <!-- Группа из 3 карточек -->
-    <div class="card-group">
+    {{range .Ideas}}
+    {{if .IsStart}}<div class="card-group">{{end}}
       <!-- Первая карточка -->
       <div class="card" style="border-radius: 5%;">
         <div class="card-body">
           <!-- Название идеи -->
-          <h5 class="card-title">Название идеи</h5>
+          <h5 class="card-title">{{.Title}}</h5>
           <!-- Описание идеи -->
-          <p class="card-text">Это место для вашего текста</p>
+          <p class="card-text">{{.Text}}</p>
         </div>
         <div class="card-footer">
           <!-- Время апдейта -->
-          <small class="text-body-secondary">Опубликовано 23.09.2024</small>
+          <small class="text-body-secondary">Опубликовано {{.Date}}</small>
         </div>
       </div>
-      <div class="card" style="border-radius: 5%;">
-        <div class="card-body">
-          <h5 class="card-title">Название идеи</h5>
-          <p class="card-text">Это место для вашего текста Это место для вашего текста Это место для вашего текстаЭто место для вашего текста Это место для вашего текста Это место для вашего текста Это место для вашего текстаЭто место для ва Это место для вашего текста Это место для вашего текста Это место для вашего текстаЭто место для ва</p>
-        </div>
-        <div class="card-footer">
-          <small class="text-body-secondary">Опубликовано 23.09.2024</small>
-        </div>
-      </div>
-      <div class="card" style="border-radius: 5%;">
-        <div class="card-body">
-          <h5 class="card-title">Название</h5>
-          <p class="card-text">Это место для вашего текста Это место для вашего текста </p>
-        </div>
-        <div class="card-footer">
-          <small class="text-body-secondary">Опубликовано 23.09.2024</small>
-        </div>
-      </div>
-    </div>
+    {{if .IsEnd}}</div>{{end}}
   </div>
     
   </body>
