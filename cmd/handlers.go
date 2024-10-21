@@ -203,6 +203,8 @@ type News struct {
 	Author  string
 	Text    string
 	IsThird bool
+	IsFirst bool
+	IsLast  bool
 }
 
 func (h *Handler) News(w http.ResponseWriter, r *http.Request) {
@@ -215,8 +217,11 @@ func (h *Handler) News(w http.ResponseWriter, r *http.Request) {
 		err = rows.Scan(&new.Id, &new.Title, &new.Date, &new.Author, &new.Text)
 		Check(err)
 		new.IsThird = new.Id%3 == 0
+		new.IsFirst = new.Id%3 == 1
+		new.IsLast = false
 		news = append(news, new)
 	}
+	news[len(news)-1].IsLast = true
 	rows.Close()
 	slices.Reverse(news)
 	h.Tmpl.ExecuteTemplate(w, "news.html", tpl{News: news})

@@ -48,9 +48,12 @@
       </div>    
     </form>
     <!-- Группа из N карточек -->
-    <div class="card-group">
     {{range .News}}
-      <!-- N-ая карточка -->
+    {{if .IsFirst}}       
+    <!-- N-ая карточка -->
+    <div class="card-group">
+    {{else}}
+    {{end}}
       <div class="card">
         <div class="card-body">
           <h5 class="card-title">{{.Title}}</h5>
@@ -61,13 +64,14 @@
           <small class="text-body-secondary">{{.Date}}</small>
         </div>
       </div>
-      {{if .IsThird}} <br>
-      {{else}} ABOOFBOBFAOBFAO
-      {{end}}
-    {{end}}
+    {{if .IsThird || .IsLast}}
     </div>
+    {{else}}
+    {{end}}
+    {{end}}
   </div>
-    </article>
+  
+  </article>
 
   </body>
   <footer>
