@@ -38,3 +38,14 @@ CREATE TABLE `publications` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 INSERT INTO `publications` (`id`, `title`, `date`, `author`, `text`) VALUES (0, "MY CREATION", "21.10.2024", "admin", "hello fucking world");
+
+DROP TABLE IF EXISTS `ideas`;
+CREATE TABLE `ideas` (
+    `id` int NOT NULL AUTO_INCREMENT,
+    `title` varchar(255) NOT NULL,
+    `date` varchar(255) NOT NULL,
+    `text` varchar(255) DEFAULT NULL,   
+    PRIMARY KEY (`id`)   
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+INSERT INTO `ideas` (`id`, `title`, `date`, `text`) VALUES (0, "MY CREATION", "21.10.2024", "hello fucking world");
