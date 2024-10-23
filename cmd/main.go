@@ -12,7 +12,7 @@ import (
 
 func main() {
 	fmt.Println("Connecting to database...")
-	dsn := "r91807sb_data:" + /* тут должен быть пароль */ "@tcp(r91807sb.beget.tech)/r91807sb_data?"
+	dsn := "r91807sb_data:" + "pass" + "@tcp(r91807sb.beget.tech)/r91807sb_data?"
 	dsn += "&charset=utf8"
 	dsn += "&interpolateParams=true"
 
